@@ -1,0 +1,8 @@
+/target
+/input/input*
+session
+scratch
+Cargo.lock
+*.fail
+webpage
+
