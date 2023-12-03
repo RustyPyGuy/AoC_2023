@@ -38,26 +38,22 @@ fn main() {
     match cli_args.day {
         0 => {
             result.push(
-                day0::day_0_challenge_1(&config.as_ref().unwrap())
-                    .unwrap()
-                    .into(),
+                day0::day_0_challenge_1(config.as_ref().unwrap())
+                    .unwrap(),
             );
             result.push(
-                day0::day_0_challenge_2(&config.as_ref().unwrap())
-                    .unwrap()
-                    .into(),
+                day0::day_0_challenge_2(config.as_ref().unwrap())
+                    .unwrap(),
             );
         }
         1 => {
             result.push(
-                day1::day_1_challenge_1(&config.as_ref().unwrap())
-                    .unwrap()
-                    .into(),
+                day1::day_1_challenge_1(config.as_ref().unwrap())
+                    .unwrap(),
             );
             result.push(
-                day1::day_1_challenge_2(&config.as_ref().unwrap())
-                    .unwrap()
-                    .into(),
+                day1::day_1_challenge_2(config.as_ref().unwrap())
+                    .unwrap(),
             );
         }
         // 2 => {

@@ -21,19 +21,20 @@ pub fn day_1_challenge_1(config: &Config) -> Result<i128, Error> {
     let mut sum: u32 = 0;
     // iterate over the vector of strings line by line.
     for single_line in vec_strings.into_iter() {
+        #[allow(unused_assignments)]
         let mut temp: String = String::with_capacity(100);
         // let mut temp_chars: Chars = Chars::new();
-        let num_ones_place: u32;
-        let num_tens_place: u32;
+        
+        
         // filter through the string as an iterator of characters and remove anything that is not a number. Order is kept.
         temp = single_line
             .chars()
-            .filter_map(|x| x.is_numeric().then(|| x))
+            .filter_map(|x| x.is_numeric().then_some(x))
             .collect();
         // convert the last number to a number type (u32) with base 10.
-        num_ones_place = temp.chars().last().as_ref().unwrap().to_digit(10).unwrap();
+        let num_ones_place: u32 = temp.chars().last().as_ref().unwrap().to_digit(10).unwrap();
         // reverse the string of charagers and convert the first number to a number type (u32) with base ten to get the 10s place.
-        num_tens_place = temp
+        let num_tens_place: u32 = temp
             .chars()
             .rev()
             .last()
@@ -60,12 +61,12 @@ pub fn day_1_challenge_2(config: &Config) -> Result<i128, Error> {
     ];
     // iterate over the vector of strings line by line.
     for single_line in vec_strings.into_iter() {
-        let mut temp10s: usize = 0;
-        let mut temp1s: usize = 1;
+        let temp10s: usize;
+        let temp1s: usize;
         // initiate a Vector of tuples of the position index and value to store the results.
         let mut decoded_postion_number: Vec<(usize, usize)> = Vec::new();
         // Iterate over the characters in the line with the position index  explicitly tracted.
-        dbg!(&single_line);
+        // dbg!(&single_line);
         for (position_index, character) in single_line.chars().enumerate() {
             // test if the character is numeric, and if so, push the position index on the string
             // with the value on to the vector.
@@ -101,7 +102,7 @@ pub fn day_1_challenge_2(config: &Config) -> Result<i128, Error> {
             temp1s = temp10s;
         }
         // sum it all up in the loop.
-        dbg!(&temp10s, &temp1s);
+        // dbg!(&temp10s, &temp1s);
         sum += temp10s * 10 + temp1s;
     }
     // Return a result of Ok with the value.
