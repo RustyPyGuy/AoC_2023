@@ -7,7 +7,7 @@ use aoc_23::*; //import lib module
 use std::time::{Duration, Instant};
 mod day0;
 mod day1;
-// mod day2;
+mod day2;
 // mod day3;
 // mod day4;
 // mod day5;
@@ -37,37 +37,25 @@ fn main() {
     let config = aoc_23::Config::parse_config(cli_args.clone());
     match cli_args.day {
         0 => {
-            result.push(
-                day0::day_0_challenge_1(config.as_ref().unwrap())
-                    .unwrap(),
-            );
-            result.push(
-                day0::day_0_challenge_2(config.as_ref().unwrap())
-                    .unwrap(),
-            );
+            result.push(day0::day_0_challenge_1(config.as_ref().unwrap()).unwrap());
+            result.push(day0::day_0_challenge_2(config.as_ref().unwrap()).unwrap());
         }
         1 => {
+            result.push(day1::day_1_challenge_1(config.as_ref().unwrap()).unwrap());
+            result.push(day1::day_1_challenge_2(config.as_ref().unwrap()).unwrap());
+        }
+        2 => {
             result.push(
-                day1::day_1_challenge_1(config.as_ref().unwrap())
-                    .unwrap(),
+                day2::day_2_challenge_1(&config.as_ref().unwrap())
+                    .unwrap()
+                    .into(),
             );
             result.push(
-                day1::day_1_challenge_2(config.as_ref().unwrap())
-                    .unwrap(),
+                day2::day_2_challenge_2(&config.as_ref().unwrap())
+                    .unwrap()
+                    .into(),
             );
         }
-        // 2 => {
-        //     result.push(
-        //         day2::day_2_challenge_1(&config.as_ref().unwrap())
-        //             .unwrap()
-        //             .into(),
-        //     );
-        //     result.push(
-        //         day2::day_2_challenge_2(&config.as_ref().unwrap())
-        //             .unwrap()
-        //             .into(),
-        //     );
-        // }
         // 3 => {
         //     result.push(
         //         day3::day_3_challenge_1(&config.as_ref().unwrap())

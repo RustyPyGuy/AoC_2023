@@ -24,8 +24,7 @@ pub fn day_1_challenge_1(config: &Config) -> Result<i128, Error> {
         #[allow(unused_assignments)]
         let mut temp: String = String::with_capacity(100);
         // let mut temp_chars: Chars = Chars::new();
-        
-        
+
         // filter through the string as an iterator of characters and remove anything that is not a number. Order is kept.
         temp = single_line
             .chars()
