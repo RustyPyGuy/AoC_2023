@@ -21,7 +21,7 @@ pub fn day_1_challenge_1(config: &Config) -> Result<i128, Error> {
     let mut sum: u32 = 0;
     // iterate over the vector of strings line by line.
     for single_line in vec_strings.into_iter() {
-        let mut temp: String = String::new();
+        let mut temp: String = String::with_capacity(100);
         // let mut temp_chars: Chars = Chars::new();
         let num_ones_place: u32;
         let num_tens_place: u32;
@@ -44,6 +44,7 @@ pub fn day_1_challenge_1(config: &Config) -> Result<i128, Error> {
         // add it all up in the loop
         sum += num_tens_place * 10 + num_ones_place;
     }
+    // Return a result of Ok with the value.
     Ok(sum as i128)
 }
 
@@ -53,37 +54,66 @@ pub fn day_1_challenge_2(config: &Config) -> Result<i128, Error> {
     let buf = open_puzzle_file_to_buf(config).unwrap();
     let vec_strings = read_buf_into_vec_strings(buf).unwrap();
     let mut sum: usize = 0;
-    // Initiate an array of string slices
-    let word_numbers2: [&str; 10] = [
+    // Initiate an array of string slices. Arrays in Rust are uncommon compared to Vectors.
+    const WORD_NUMBERS: [&str; 10] = [
         "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
     ];
+    // iterate over the vector of strings line by line.
     for single_line in vec_strings.into_iter() {
         let mut temp10s: usize = 0;
-        let temp1s: usize;
+        let mut temp1s: usize = 1;
+        // initiate a Vector of tuples of the position index and value to store the results.
         let mut decoded_postion_number: Vec<(usize, usize)> = Vec::new();
+        // Iterate over the characters in the line with the position index  explicitly tracted.
+        dbg!(&single_line);
         for (position_index, character) in single_line.chars().enumerate() {
+            // test if the character is numeric, and if so, push the position index on the string
+            // with the value on to the vector.
+            // index in the string.
             if character.is_numeric() {
                 let digit: usize = character.to_digit(10).unwrap() as usize;
                 decoded_postion_number.push((position_index, digit));
             }
         }
-        for (decoded_number, word) in word_numbers2.iter().enumerate() {
+        // test if the the string contains one of the number words, and if so, push the postion
+        // and the value onto the vector.
+        for (decoded_number, word) in WORD_NUMBERS.iter().enumerate() {
             if let Some(position_index) = single_line.find(word) {
                 decoded_postion_number.push((position_index, decoded_number));
             }
+            //check for the last occurance in case the same word is there twice
+            if let Some(position_index) = single_line.rfind(word) {
+                decoded_postion_number.push((position_index, decoded_number));
+            }
         }
+        // Sort the vector by position number so that the mix of decoded numbers and words are
+        // correctly ordered.
         decoded_postion_number.sort_unstable_by_key(|x| x.0);
-        dbg!(&decoded_postion_number);
-        temp1s = decoded_postion_number.pop().unwrap().1;
-        if decoded_postion_number.len() > 0 {
+        // Pop the last value as the one's place.
+        // decoded_postion_number.reverse();
+        // if the vector has more than one value, reverse and pop the last value for the 10s place.
+        if decoded_postion_number.len() > 1 {
+            temp1s = decoded_postion_number.pop().unwrap().1;
             decoded_postion_number.reverse();
             temp10s = decoded_postion_number.pop().unwrap().1;
+        } else {
+            temp10s = decoded_postion_number.pop().unwrap().1;
+            temp1s = temp10s;
         }
+        // sum it all up in the loop.
+        dbg!(&temp10s, &temp1s);
         sum += temp10s * 10 + temp1s;
     }
+    // Return a result of Ok with the value.
     Ok(sum as i128)
 }
 
+//  TEST FUNCTIONS.
+//  Everything below is to configure and run the tests.
+//  The tests take the sample input, execute the challenge code, and compare it to the expected
+//  sample output.
+//
+//  These two functions return a Config struct for each challenge, which is defined in lib.rs
 pub fn test_config_d1_1() -> Config {
     let test_config: Config = Config {
         challenge: 1,
@@ -99,6 +129,8 @@ pub fn test_config_d1_2() -> Config {
     test_config
 }
 
+// The functions below run the tests by calling a maco that is defined in lib.rs
+// The advantage of this approach is that the functions do not need rewriting each day.
 #[cfg(test)]
 mod test {
     use super::*;

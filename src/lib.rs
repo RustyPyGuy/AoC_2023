@@ -92,11 +92,10 @@ pub fn read_into_string(config: &Config) -> String {
     //     println!("Error opening file: {}", err);
     //     process::exit(1);
     // });
-    let file_contents = fs::read_to_string(config.filename.clone()).unwrap();
-    file_contents
+    fs::read_to_string(config.filename.clone()).unwrap()
 }
 
-pub fn read_string_to_vec_lines<'a>(input: &'a String) -> Vec<&'a str> {
+pub fn read_string_to_vec_lines<'a>(input: &'a str) -> Vec<&'a str> {
     let lines: Vec<&'a str> = input.lines().filter(|l| l != &"").collect();
     // let output = lines.iter();
     // output
@@ -127,6 +126,8 @@ pub fn parse_string_into_integers_usize(input: String, delimiter: char) -> Vec<u
     numbers
 }
 
+// This macro writes the test functions.  Macros in rust are shorhand to write repetitive code, in
+// this case the name of each day's functions changes, and the macro accounts for that.
 #[macro_export]
 macro_rules! test_expected_computed {
     ($day:literal, $challenge:literal, $config:expr) => {
