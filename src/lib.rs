@@ -7,6 +7,7 @@ use std::fs::File;
 // use std::error::Error;
 use clap::Parser;
 // use paste;
+use grid::Grid;
 use std::io::{BufRead, BufReader, Error, ErrorKind, Read};
 use std::process;
 
@@ -87,6 +88,14 @@ pub fn read_buf_into_vec_strings<R: Read>(io: R) -> Result<Vec<String>, std::io:
     Ok(v)
 }
 
+/// Reads a file buffer intended to be a matrix of symbols and outputs a grid of type char.
+pub fn read_buf_into_grid_char_type<R: Read>(
+    io: R,
+    rows: usize,
+    cols: usize,
+) -> Result<Grid<char>, std::io::Error> {
+    Ok(Grid::new(rows, cols))
+}
 pub fn read_into_string(config: &Config) -> String {
     // let f = File::open(config.filename.clone()).unwrap_or_else(|err| {
     //     println!("Error opening file: {}", err);

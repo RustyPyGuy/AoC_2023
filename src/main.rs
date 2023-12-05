@@ -8,7 +8,7 @@ use std::time::{Duration, Instant};
 mod day0;
 mod day1;
 mod day2;
-// mod day3;
+mod day3;
 // mod day4;
 // mod day5;
 // mod day6;
@@ -56,18 +56,18 @@ fn main() {
                     .into(),
             );
         }
-        // 3 => {
-        //     result.push(
-        //         day3::day_3_challenge_1(&config.as_ref().unwrap())
-        //             .unwrap()
-        //             .into(),
-        //     );
-        //     result.push(
-        //         day3::day_3_challenge_2(&config.as_ref().unwrap())
-        //             .unwrap()
-        //             .into(),
-        //     );
-        // }
+        3 => {
+            result.push(
+                day3::day_3_challenge_1(&config.as_ref().unwrap())
+                    .unwrap()
+                    .into(),
+            );
+            result.push(
+                day3::day_3_challenge_2(&config.as_ref().unwrap())
+                    .unwrap()
+                    .into(),
+            );
+        }
         // 4 => {
         //     result.push(
         //         day4::day_4_challenge_1(&config.as_ref().unwrap())
